@@ -1,91 +1,91 @@
-     š*   Affiche la description de fichiers.
-     š*      Sert de "frontend" au rabais pour DSPFD et DSPFFD
-     š*
-     š*   Version 1.0
-     š*      Utilise les fichiers gänäräs par les commandes DSPFD et DSPFFD
-     š*      Ces fichiers sont placäs dans QTEMP et sont gänäräs dans le CL WINGFILEC1
-     š*
-     š*   License GPL V3.0
-     š*      Lien : https://www.gnu.org/licenses/gpl-3.0-standalone.html
-     š*
-     š*
-     š*
+     Å¡*   Affiche la description de fichiers.
+     Å¡*      Sert de "frontend" au rabais pour DSPFD et DSPFFD
+     Å¡*
+     Å¡*   Version 1.0
+     Å¡*      Utilise les fichiers gÃ¤nÃ¤rÃ¤s par les commandes DSPFD et DSPFFD
+     Å¡*      Ces fichiers sont placÃ¤s dans QTEMP et sont gÃ¤nÃ¤rÃ¤s dans le CL WINGFILEC1
+     Å¡*
+     Å¡*   License GPL V3.0
+     Å¡*      Lien : https://www.gnu.org/licenses/gpl-3.0-standalone.html
+     Å¡*
+     Å¡*
+     Å¡*
      H DftActGrp(*No)
-     š*
-     š*   Liste des fichiers utilisäs
-     š*
+     Å¡*
+     Å¡*   Liste des fichiers utilisÃ¤s
+     Å¡*
      FWingFileD1CF   E             WorkStn IndDs(DspfDs) SFile(WINGSFL:SFLRCD)
      FWingFileP1O    E             Printer UsrOpn OflInd(wOverflow)
-     š*   Fichiers de travail
+     Å¡*   Fichiers de travail
      FWDSPFD    IF   E             DISK
      FWDSPFFD   IF   E             DISK
-     š*
-     š*   Däfinition des variables / DS / Paramütres / Etc
-     š*
+     Å¡*
+     Å¡*   DÃ¤finition des variables / DS / ParamÃ¼tres / Etc
+     Å¡*
      D DspfDs          DS
      D  SflFold               11     11N
      D  SflPos                20     20N
      D  SflDspCtl             30     30N
      D  SflDsp                31     31N
-     š*
+     Å¡*
      D CenterString    PR            50    Varying
      D  pText                        50    Value
      D  pLength                       2P 0 Value
-     š*
+     Å¡*
      D CurFormat       S                   Like(WFNAME)
      D wFldi           S             10    Varying
      D wOverflow       S              1N   Inz(*Off)
      D wPos            S                   Like(SflRcd)
-     š*
-     š*   Le Programme
-     š*
+     Å¡*
+     Å¡*   Le Programme
+     Å¡*
       /Free
 
-    š  //   Boucle de traitement
+    Å¡  //   Boucle de traitement
        Dow Not *INLR;
 
           SflFold = WFMODE;
           Exfmt WINGCTL;
           Select;
-    š        //   F3 = Quitter ou F12=Annuler
+    Å¡        //   F3 = Quitter ou F12=Annuler
              When *INKC Or *INKL;
                 *INLR = *On;
-    š        //   F21 = Imprimer
+    Å¡        //   F21 = Imprimer
              When *INKV;
                 Exsr PrintSR;
-    š        //   Positionnement dans le sous-fichier en fonction de la zone de recherche
+    Å¡        //   Positionnement dans le sous-fichier en fonction de la zone de recherche
              When WFPosition <> *Blank;
                 Exsr SearchSR;
           EndSl;
        EndDo;
 
-    š  //   Bye bye
+    Å¡  //   Bye bye
        *INLR = *On;
        Return;
-    š  //*************************************************************çç
-    š  //   Initialisation du programme                               çç
-    š  //*************************************************************çç
+    Å¡  //*************************************************************Ã§Ã§
+    Å¡  //   Initialisation du programme                               Ã§Ã§
+    Å¡  //*************************************************************Ã§Ã§
        BegSR *InzSR;
 
-    š     //   Initialisation de l'äcran
+    Å¡     //   Initialisation de l'Ã¤cran
           Read WDSPFD;
           If Not %Eof;
-    š        //   Entête
+    Å¡        //   EntÃªte
              WfFILE = CenterString(%Trimr(ATLIB) + '/' + %Trim(ATFILE) +
                 ' - Type : ' + ATFILA:40);
              WFTXT = CenterString(ATTXT:50);
           Else;
-             Dsply 'Däsolä. Il y a eu un problüme  :(';
+             Dsply 'DÃ¤solÃ¤. Il y a eu un problÃ¼me  :(';
           EndIF;
 
           Exsr LoadSflSR;
 
        EndSR;
-    š  //*************************************************************çç
-    š  //   Initialisation de l'affichager                            çç
-    š  //      Format de contrôle                                     çç
-    š  //      Bas de l'äcran (touches de fonction)                   çç
-    š  //*************************************************************çç
+    Å¡  //*************************************************************Ã§Ã§
+    Å¡  //   Initialisation de l'affichager                            Ã§Ã§
+    Å¡  //      Format de contrÃ´le                                     Ã§Ã§
+    Å¡  //      Bas de l'Ã¤cran (touches de fonction)                   Ã§Ã§
+    Å¡  //*************************************************************Ã§Ã§
        BegSR InitSflSR;
 
           SFLRCD = *Zero;
@@ -98,10 +98,10 @@
           Write WINGFOOT;
 
        EndSR;
-    š  //*************************************************************çç
-    š  //   Chargement du sous-fichier                                çç
-    š  //   Boucle de lecture sur DSPFFD                              çç
-    š  //*************************************************************çç
+    Å¡  //*************************************************************Ã§Ã§
+    Å¡  //   Chargement du sous-fichier                                Ã§Ã§
+    Å¡  //   Boucle de lecture sur DSPFFD                              Ã§Ã§
+    Å¡  //*************************************************************Ã§Ã§
        BegSR LoadSflSR;
 
           ExSr InitSflSR;
@@ -112,7 +112,7 @@
              SFLRCD += 1;
              WFFLDI = WHFLDI;
              WFFLDT = WHFLDT;
-    š        //   Diffärence d'affichage des däcimales selon que la zone est numärique ou pas
+    Å¡        //   DiffÃ¤rence d'affichage des dÃ¤cimales selon que la zone est numÃ¤rique ou pas
              If WFFLDT <> 'A';
                 WFFLDB = WHFLDD;
                 evalr WFFLDP = %Char(WHFLDP);
@@ -122,7 +122,7 @@
              EndIf;
              WFFOBO = WHFOBO;
              WFPOSF = WHFOBO + WHFLDB - 1;
-    š        //   Le nom du format n'est affichä qu'une fois
+    Å¡        //   Le nom du format n'est affichÃ¤ qu'une fois
              If CurFormat <> WHNAME;
                 WFNAME = CenterString(WHNAME:10);
                 CurFormat = WHNAME;
@@ -131,7 +131,7 @@
              EndIf;
              WFFTXT = WHFTXT;
 
-    š        //   Les entêtes de colonnes (COLHDG), affichäs sur la deuxiüme ligne
+    Å¡        //   Les entÃªtes de colonnes (COLHDG), affichÃ¤s sur la deuxiÃ¼me ligne
              WFCHD1 = WHCHD1;
              WFCHD2 = WHCHD2;
              WFCHD3 = WHCHD3;
@@ -147,15 +147,15 @@
           EndIf;
 
        EndSR;
-    š  //*************************************************************çç
-    š  //   Impression de la description du fichier                   çç
-    š  //*************************************************************çç
+    Å¡  //*************************************************************Ã§Ã§
+    Å¡  //   Impression de la description du fichier                   Ã§Ã§
+    Å¡  //*************************************************************Ã§Ã§
        BegSR PrintSR;
 
           Open WingFileP1;
 
-    š     //   Le nom du fichier et sa description ne sont pas cadräs de
-    š     //    la même faÖon que dans l'äcran d'oö des noms diffärents ^^
+    Å¡     //   Le nom du fichier et sa description ne sont pas cadrÃ¤s de
+    Å¡     //    la mÃªme faÃ–on que dans l'Ã¤cran d'oÃ¶ des noms diffÃ¤rents ^^
           WEFILE = %Trim(WFFILE);
           WETXT = %Trim(WFTXT);
 
@@ -165,12 +165,12 @@
           Wpos = 1;
           Chain wPos WingSfl;
 
-    š     //   Lecture du sous-fichier pour remplir l'ätat
+    Å¡     //   Lecture du sous-fichier pour remplir l'Ã¤tat
           Dow %Found;
 
              Write Detail;
 
-    š        //   Saut de page
+    Å¡        //   Saut de page
              If wOverflow;
                 Write Separateur;
                 Write WFEntete;
@@ -186,17 +186,17 @@
           Close WingFileP1;
 
        EndSR;
-    š  //*************************************************************çç
-    š  //   Recherche sur le nom de la zone                           çç
-    š  //*************************************************************çç
+    Å¡  //*************************************************************Ã§Ã§
+    Å¡  //   Recherche sur le nom de la zone                           Ã§Ã§
+    Å¡  //*************************************************************Ã§Ã§
        BegSR SearchSR;
 
           wFldi = %Trim(WFPosition);
           WFPosition = *Blank;
           wPos = 1;
 
-    š     //   Recherche de la premiüre occurence
-    š     //    Trop fänäant pour chercher les suivantes
+    Å¡     //   Recherche de la premiÃ¼re occurence
+    Å¡     //    Trop fÃ¤nÃ¤ant pour chercher les suivantes
           Chain wPos WingSfl;
           Dow %Found;
              If %Scan(wFldi:WFFLDI) <> *Zero;
@@ -215,19 +215,19 @@
        EndSR;
 
       /End-Free
-     š***************************************************************
-     š*   Sous-procädure de centrage de chaînes de caractüres       *
-     š***************************************************************
+     Å¡***************************************************************
+     Å¡*   Sous-procÃ¤dure de centrage de chaÃ®nes de caractÃ¼res       *
+     Å¡***************************************************************
      PCenterString     B
-     š*
+     Å¡*
      D CenterString    PI            50    Varying
      D  pText                        50    Value
      D  pLength                       2P 0 Value
-     š*
+     Å¡*
      D  wMess          S             50    Varying
      D  wLength        S                   Like(pLength)
      D  wStart         S                   Like(pLength)
-     š*
+     Å¡*
       /Free
 
          %Len(wMess) = pLength;
