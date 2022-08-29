@@ -1,0 +1,9 @@
+             CMD        PROMPT('Choisir le fichier à décrire')
+
+             PARM       KWD(FILE) TYPE(FICHIER) MIN(1) +
+                          PROMPT('Fichier')
+
+ Fichier:    QUAL       TYPE(*NAME) LEN(10) MIN(1)
+
+             QUAL       TYPE(*NAME) LEN(10) DFT(*LIBL) +
+                          SPCVAL((*LIBL)) PROMPT('Bibliothèque')

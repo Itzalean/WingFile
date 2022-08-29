@@ -1,0 +1,43 @@
+             PGM        PARM(&PPARM)
+
+             DCL        VAR(&PPARM) TYPE(*CHAR) LEN(20)
+             DCL        VAR(&PFILE) TYPE(*CHAR) STG(*DEFINED) +
+                          LEN(10) DEFVAR(&PPARM)
+             DCL        VAR(&PLIBL) TYPE(*CHAR) STG(*DEFINED) +
+                          LEN(10) DEFVAR(&PPARM 11)
+
+             DCL        VAR(&MSGID) TYPE(*CHAR) LEN(7)
+             DCL        VAR(&MSGDTA) TYPE(*CHAR) LEN(256)
+             DCL        VAR(&MSGF) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&MSGFLIB) TYPE(*CHAR) LEN(10)
+
+             MONMSG     MSGID(CPF0000) EXEC(GOTO CMDLBL(MANAGEERR))
+
+             DSPFD      FILE(&PLIBL/&PFILE) TYPE(*BASATR) +
+                          OUTPUT(*OUTFILE) OUTFILE(QTEMP/WDSPFD)
+             DSPFFD     FILE(&PLIBL/&PFILE) OUTPUT(*OUTFILE) +
+                          OUTFILE(QTEMP/WDSPFFD)
+
+             OVRDBF     FILE(WDSPFD) TOFILE(QTEMP/WDSPFD)
+             OVRDBF     FILE(WDSPFFD) TOFILE(QTEMP/WDSPFFD)
+
+             CALL       PGM(WINGFILE1)
+
+             DLTOVR     FILE(WDSPFD WDSPFFD)
+             DLTF       FILE(QTEMP/WDSPFD)
+             DLTF       FILE(QTEMP/WDSPFFD)
+
+             RETURN
+
+             /*š================================================== */
+             /*š  Gestion des erreurs histoire de ne pas planter   */
+             /*š     lamentablement. C'est toujours mieux de       */
+             /*š     planter proprement . ^^                       */
+             /*š================================================== */
+manageerr:
+             RCVMSG     MSGTYPE(*LAST) MSGDTA(&MSGDTA) MSGID(&MSGID) +
+                          MSGF(&MSGF) SNDMSGFLIB(&MSGFLIB)
+             SNDPGMMSG  MSGID(&MSGID) MSGF(&MSGF) MSGDTA(&MSGDTA) +
+                          MSGTYPE(*DIAG)
+
+             ENDPGM

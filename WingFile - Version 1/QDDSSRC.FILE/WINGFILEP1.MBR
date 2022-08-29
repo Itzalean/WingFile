@@ -1,0 +1,67 @@
+     A          R WFENTETE
+     A                                      SPACEB(001)
+     A                                      SKIPB(001)
+     A                                    49
+     A                                      'WingFile - Desctiption d''un fichi-
+     A                                      er'
+     A                                   110
+     A                                      'Le'
+     A                                   113
+     A                                      DATE
+     A                                      EDTCDE(Y)
+     A                                    +1
+     A                                      '§'
+     A                                    +1
+     A                                      TIME
+     A                                     4
+     A                                      'Fichier :'
+     A                                      SPACEB(001)
+     A            WEFILE        40A  O    +1
+     A                                      SPACEA(001)
+     A            WETXT         50A  O    14
+     A                                      SPACEA(002)
+     A                                     2
+     A                                      '-----------------------------------
+     A                                      ------------------------------------
+     A                                      ------------------------------------
+     A                                      ------'
+     A                                      SPACEA(001)
+     A                                     2
+     A                                      '| Nom zone   |Typ|   Taille | Däbu-
+     A                                      t   Fin |   Format   | Description -
+     A                                                                         -
+     A                                           |'
+     A          R SEPARATEUR
+     A                                      SPACEB(001)
+     A                                     2
+     A                                      '-----------------------------------
+     A                                      ------------------------------------
+     A                                      ------------------------------------
+     A                                      ------'
+     A          R DETAIL
+     A                                      SPACEB(001)
+     A                                     2
+     A                                      '|'
+     A            WFFLDI        10A  O     4
+     A                                    15
+     A                                      '|'
+     A            WFFLDT         1A  O    +1
+     A                                    19
+     A                                      '|'
+     A            WFFLDB         5S 0O    21
+     A                                      EDTCDE(3)
+     A            WFFLDP         2A  O    +1
+     A                                    30
+     A                                      '|'
+     A            WFFOBO         5S 0O    32
+     A                                      EDTCDE(3)
+     A            WFPOSF         5S 0O    +1
+     A                                      EDTCDE(3)
+     A                                    44
+     A                                      '|'
+     A            WFNAME        10A  O    +1
+     A                                    57
+     A                                      '|'
+     A            WFFTXT        50A  O    59
+     A                                   111
+     A                                      '|'
